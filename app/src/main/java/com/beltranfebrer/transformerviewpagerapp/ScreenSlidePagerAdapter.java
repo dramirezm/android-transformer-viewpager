@@ -10,7 +10,7 @@ import android.view.View;
  * Created by miquel on 18.01.16.
  */
 public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-    private static final int NUM_PAGES = 5;
+    private static final int NUM_PAGES = 3;
 
     public ScreenSlidePagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -18,11 +18,13 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new ScreenSlidePagerFragment();
+        return ScreenSlidePagerFragment.newInstance(position);
     }
 
     @Override
     public int getCount() {
         return NUM_PAGES;
     }
+
+
 }

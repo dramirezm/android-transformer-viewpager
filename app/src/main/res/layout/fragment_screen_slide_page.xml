@@ -12,6 +12,7 @@
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="UNO" />
+            android:text="UNO"
+            android:id="@+id/fragment_text"/>
     </ScrollView>
 </LinearLayout>
