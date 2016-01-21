@@ -11,6 +11,9 @@ import android.view.View;
  */
 public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
     private static final int NUM_PAGES = 3;
+    private int leftColor;
+    private int rightColor;
+    private int currentColor;
 
     public ScreenSlidePagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
@@ -18,7 +21,16 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return ScreenSlidePagerFragment.newInstance(position);
+        switch (position) {
+            case 0:
+                return ScreenSlidePagerFragment.newInstance(leftColor);
+            case 1:
+                return ScreenSlidePagerFragment.newInstance(currentColor);
+            case 2:
+                return ScreenSlidePagerFragment.newInstance(rightColor);
+            default:
+                return ScreenSlidePagerFragment.newInstance(currentColor);
+        }
     }
 
     @Override
@@ -27,4 +39,10 @@ public class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
     }
 
 
+    public void setColorSet(int currentColor, int leftColor, int rightColor) {
+
+        this.currentColor = currentColor;
+        this.leftColor = leftColor;
+        this.rightColor = rightColor;
+    }
 }

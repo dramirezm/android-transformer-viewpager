@@ -18,11 +18,11 @@ public class ScreenSlidePagerFragment extends Fragment {
      * Create a new instance of DetailsFragment, initialized to
      * show the text at 'index'.
      */
-    public static ScreenSlidePagerFragment newInstance(int index) {
+    public static ScreenSlidePagerFragment newInstance(int color) {
         ScreenSlidePagerFragment f = new ScreenSlidePagerFragment();
         // Supply index input as an argument.
         Bundle args = new Bundle();
-        args.putInt("index", index);
+        args.putInt("color", color);
         f.setArguments(args);
         return f;
     }
@@ -33,25 +33,10 @@ public class ScreenSlidePagerFragment extends Fragment {
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.fragment_screen_slide_page, container, false);
         Bundle args = getArguments();
-        int index = args.getInt("index", 0);
+        int color = args.getInt("color", 0);
         TextView textView = (TextView) rootView.findViewById(R.id.fragment_text);
         ScrollView scrollView = (ScrollView) rootView.findViewById(R.id.content);
-        switch (index) {
-            case 0:
-                textView.setText("Next left");
-                scrollView.setBackgroundColor(Color.GREEN);
-                break;
-            case 1:
-                textView.setText("Current");
-                scrollView.setBackgroundColor(Color.YELLOW);
-                break;
-            case 2:
-                textView.setText("Next right");
-                scrollView.setBackgroundColor(Color.BLUE);
-                break;
-            default:
-                textView.setText("Unknown");
-        }
+        scrollView.setBackgroundColor(color);
         return rootView;
     }
 
