@@ -6,26 +6,21 @@ import android.os.Bundle;
 
 import com.github.lzyzsd.randomcolor.RandomColor;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainActivityView {
 
+    private MainActivityPresenter presenter;
     private ViewPager mPager;
     private ScreenSlidePagerAdapter mPagerAdapter;
-    private int currentColor, leftColor, rightColor;
-    private RandomColor randomColor = new RandomColor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        updateColors(randomColor.randomColor());
-
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mPagerAdapter.setColorSet(currentColor, leftColor, rightColor);
-        mPager.setAdapter(mPagerAdapter);
-        mPager.setCurrentItem(1);
+        presenter = new MainActivityPresenter(this);
         mPager.setPageTransformer(true, new DepthPageTransformer());
 
         mPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -43,26 +38,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
-                    if (currentPos == 0) {
-                        updateColors(leftColor);
-                        mPagerAdapter.setColorSet(currentColor, leftColor, rightColor);
-                        mPager.setAdapter(mPagerAdapter);
-                        mPager.setCurrentItem(1, false);
-                    } else if (currentPos == 2)  {
-                        updateColors(rightColor);
-                        mPagerAdapter.setColorSet(currentColor, leftColor, rightColor);
-                        mPager.setAdapter(mPagerAdapter);
-                        mPager.setCurrentItem(1, false);
-                    }
+                    presenter.switchToPos(currentPos);
                 }
             }
         });
-
     }
 
-    private void updateColors(int newColor) {
-        leftColor = randomColor.randomColor();
-        rightColor = randomColor.randomColor();
-        currentColor = newColor;
+    @Override
+    public void setColors(int currentColor, int leftColor, int rightColor) {
+        mPagerAdapter.setColorSet(currentColor, leftColor, rightColor);
+        mPager.setAdapter(mPagerAdapter);
+        mPager.setCurrentItem(1, false);
     }
 }
