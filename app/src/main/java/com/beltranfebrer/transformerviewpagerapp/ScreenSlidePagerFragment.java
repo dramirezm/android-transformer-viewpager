@@ -34,7 +34,6 @@ public class ScreenSlidePagerFragment extends Fragment {
                 R.layout.fragment_screen_slide_page, container, false);
         Bundle args = getArguments();
         int color = args.getInt("color", 0);
-        TextView textView = (TextView) rootView.findViewById(R.id.fragment_text);
         ScrollView scrollView = (ScrollView) rootView.findViewById(R.id.content);
         scrollView.setBackgroundColor(color);
         return rootView;
